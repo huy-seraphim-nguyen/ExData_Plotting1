@@ -17,20 +17,20 @@ dateTime <- paste(df$Date, df$Time, sep=" ")
 #Convert dateTime char vector to Date/Time class
 dateTime <- strptime(dateTime, format="%d/%m/%Y %H:%M:%S")
 
-#Call the R base plot function, and write to png file with width=480, height=480 in pixels
-png("plot3.png", width=480, height=480, units = "px")
+#Call the R base plot function, plot Sub_metering_1
+plot(dateTime, df$Sub_metering_1, col = "black", type = "l", xlab = "", ylab = "Energy Sub Metering")
 
-#First, plot a blank canvas using type="n" 
-plot(dateTime,df$Sub_metering_1,type="n",xlab="",ylab="Energy sub metering")
-
-#Then add lines for Sub_metering_1, Sub_metering_2, Sub_metering_3 
-lines(dateTime, df$Sub_metering_1, type="l" )
+#Then add lines for Sub_metering_2, Sub_metering_3 
 lines(dateTime, df$Sub_metering_2, type="l", col="red")
 lines(dateTime, df$Sub_metering_3, type="l", col="blue")
 
 #Add legend at top right of plot region
 legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty=1, lwd=2.5, col=c("black", "red", "blue"))
 
-#Close device
-dev.off() 
+#Write to png file with width=480, height=480 in pixels. 
+#dev.print will copy to png and then shut the new device  
+dev.print(png, "plot3.png", width=480, height=480, units = "px")
+
+dev.off()
+ 
 

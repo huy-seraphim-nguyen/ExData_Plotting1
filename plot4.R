@@ -18,9 +18,6 @@ dateTime <- paste(df$Date, df$Time, sep=" ")
 dateTime <- strptime(dateTime, format="%d/%m/%Y %H:%M:%S")
 
 
-#Call the R base plot function, and write to png file with width=480, height=480 in pixels
-png("plot4.png", width=480, height=480, units = "px")
-
 #Create plotting region with 2 rows & 2 colums
 par(mfrow=c(2,2))
 
@@ -30,20 +27,21 @@ plot(dateTime, df$Global_active_power,type="l",  xlab="",ylab="Global Active Pow
 #Plot2
 plot(dateTime, df$Voltage, type="l",xlab="datetime",ylab="Voltage")
 
-#Plot3
-#First, plot a blank canvas using type="n" 
-plot(dateTime,df$Sub_metering_1,type="n",xlab="",ylab="Energy sub metering")
-
-#Then add lines for Sub_metering_1, Sub_metering_2, Sub_metering_3 
-lines(dateTime, df$Sub_metering_1, type="l" )
+#Plot3 - Call the R base plot function, plot Sub_metering_1
+plot(dateTime,df$Sub_metering_1,type="l",xlab="",ylab="Energy sub metering")
+#Then add lines for Sub_metering_2, Sub_metering_3 
 lines(dateTime, df$Sub_metering_2, type="l", col="red")
 lines(dateTime, df$Sub_metering_3, type="l", col="blue")
+
+#Add legend at top right of plot region
 legend("topright", lty=1, col=c("black","red","blue"),legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), cex = 0.6)
 
 #Plot4
 plot(dateTime, df$Global_reactive_power,type="l",xlab="datetime",ylab="Global_reactive_power")
 
-#Close device
-dev.off() 
+#Write to png file with width=480, height=480 in pixels. 
+#dev.print will copy to png and then shut the new device 
+dev.print(png, "plot4.png", width=480, height=480, units = "px")
 
+dev.off()
 

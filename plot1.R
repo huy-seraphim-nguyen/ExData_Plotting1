@@ -15,8 +15,8 @@ df <- df [complete.cases(df), ] # Keep only the complete rows
 str(df)
 
 #Call the R base plot function, and write to png file with width=480, height=480 in pixels
-png("plot1.png", width=480, height=480, units = "px")
 hist(df$Global_active_power,col="red",main="Global Active Power",xlab="Global Active Power(kilowatts)")
+dev.print(png, "plot1.png", width=480, height=480, units = "px")
 
 #Close device
 dev.off()

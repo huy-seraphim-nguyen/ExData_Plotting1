@@ -18,8 +18,8 @@ dateTime <- paste(df$Date, df$Time, sep=" ")
 dateTime <- strptime(dateTime, format="%d/%m/%Y %H:%M:%S")
 
 #Call the R base plot function, and write to png file with width=480, height=480 in pixels
-png("plot2.png", width=480, height=480, units = "px")
 plot(dateTime, df$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+dev.print(png, "plot2.png", width=480, height=480, units = "px")
 
 #Close device
 dev.off() 
